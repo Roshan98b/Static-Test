@@ -43,5 +43,5 @@ stages:
                   azureSubscription: '$(AzureSubscription)'
                   appType: 'webApp'
                   appName: '$(AppServiceName)'
-                  package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+                  package: '$(Pipeline.Workspace)/**/*.zip'
                   deploymentMethod: 'auto'
