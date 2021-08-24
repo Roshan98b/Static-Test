@@ -29,14 +29,18 @@ stages:
             ArtifactName: 'drop'
   - stage: Deploy
     displayName: Deploy
+    dependsOn: Build
     jobs:
-      - job: Deploy
-        displayName: Deploy to AppService
-        steps:
-        - task: AzureWebApp@1
-          inputs:
-            azureSubscription: '$(AzureSubscription)'
-            appType: 'webApp'
-            appName: '$(AppServiceName)'
-            package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
-            deploymentMethod: 'auto'
+      - deployment: Deploy
+        displayName: Deplot to App Service
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - task: AzureWebApp@1
+                inputs:
+                  azureSubscription: '$(AzureSubscription)'
+                  appType: 'webApp'
+                  appName: '$(AppServiceName)'
+                  package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+                  deploymentMethod: 'auto'
