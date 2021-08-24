@@ -33,6 +33,7 @@ stages:
     jobs:
       - deployment: Deploy
         displayName: Deplot to App Service
+        environment: 'static-web-app'
         strategy:
           runOnce:
             deploy:
